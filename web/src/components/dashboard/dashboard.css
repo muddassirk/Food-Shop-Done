@@ -1,0 +1,62 @@
+body {
+    background-color: #DAE0E6;
+}
+
+.btnLogi {
+    width: 7em;
+    margin-left: 4%;
+    margin-right: 4%;
+    border-radius: 20px;
+    margin: 0 2px;
+}
+
+.backGroundCLor {
+    /* border: 1px solid gray; */
+    border-radius: 1px;
+    background-color: #fff;
+}
+
+.rowRightClm {
+    /* height: 10vh; */
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.todayssHead {
+    padding: 5px;
+    height: 10vh;
+    background-color: #195C8E;
+    color: white;
+    text-align: center;
+    align-items: baseline;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+.listRightCl {
+    list-style-type: decimal !important;
+}
+
+.displayPosts {
+    border: 1px solid gray;
+    border-radius: 1px;
+    padding: 10px;
+    background-color: #fff;
+    margin-left: -40px;
+}
+
+.listPost {
+    list-style: none;
+}
+
+.rowStyle {
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+.midlleClmHot {
+    font-weight: bold;
+    color: #1484D6;
+}
