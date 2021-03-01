@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./App.css";
 // import axios from 'axios'
 import axios from "axios";
-import { HashRouter as Router, Switch, Link, Route, Redirect } from "react-router-dom";
+import { HashRouter as Router, Switch, Link, Route, Redirect, useHistory } from "react-router-dom";
 // import React, { useContext } from "react";
 // import axios from "axios";
 
@@ -17,6 +17,7 @@ import './components/Home/js/app'
 
 
 import Dashboard from "./components/dashboard/dashboard";
+import DashboardHome from "./components/Dashboard Home/home";
 import AdminDashboard from "./components/adminDash/adminDash";
 
 import { useGlobalState, useGlobalStateUpdate } from "./context/globelContext"
@@ -28,7 +29,8 @@ function App() {
 
   const globalstate = useGlobalState()
   const setGlobalstate = useGlobalStateUpdate()
-
+  // const history = useHistory()
+  const history = useHistory()
 
   function handleLogout() {
     axios({
@@ -41,6 +43,10 @@ function App() {
         setGlobalstate(prev => {
           return { ...prev, loginStatus: false, user: null }
         })
+        // history.push("/")
+        history.push('/login')
+
+
       })
 
   }
@@ -153,6 +159,9 @@ function App() {
                 <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                   <div className="navbar-nav mr-auto">
                     <Link to="/" >
+                      <a className="nav-item nav-link " >Home</a>
+                    </Link>
+                    <Link to="/dashboard" >
                       <a className="nav-item nav-link " >Daschboard</a>
                     </Link>
                     <Link to="/" >
@@ -173,7 +182,7 @@ function App() {
         </div>
 
         {/* public routes */}
-        {(globalstate.role === null) ?
+        {( globalstate.role === null ) ?
           <>
             <Route exact path="/">
               <Home />
@@ -195,6 +204,9 @@ function App() {
 
           <>
             <Route exact path="/">
+              <DashboardHome />
+            </Route>
+            <Route  path="/dashboard">
               <Dashboard />
             </Route>
             <Route path="*">

@@ -108,7 +108,7 @@ app.use(function(req, res, next) {
 app.get("/profile", (req, res, next) => {
     console.log(req.body)
 
-    userModel.findById(req.body.jToken.id, 'name email createdOn',
+    userModel.findById(req.body.jToken.id, 'name email role createdOn',
         function(err, doc) {
             if (!err) {
                 res.send({
@@ -131,6 +131,7 @@ app.post("/aboutCart", (req, res, next) => {
         res.status(409).send(`
             Please send tweet in json body
             e.g:
+            "products" : "xxxxxx",
             "grandTotal" : "xxxxxx",
             "address" : "xxxxxx",
             "phone" : "xxxxxx",
@@ -146,6 +147,7 @@ app.post("/aboutCart", (req, res, next) => {
                 cartModel.create({
                     email: user.email,
                     name: user.name,
+                    products: req.body.products,
                     grandTotal: req.body.grandTotal,
                     address: req.body.address,
                     phone: req.body.phone,

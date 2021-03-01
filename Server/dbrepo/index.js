@@ -49,6 +49,7 @@ var optModel = mongoose.model("opta", optSchema);
 var aboutCart = new mongoose.Schema({
     email: String,
     name: String,
+    products: Array,
     grandTotal: String,
     address: String,
     phone: String,

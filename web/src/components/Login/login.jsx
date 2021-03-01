@@ -6,10 +6,12 @@ import {
     Route
 } from 'react-router-dom'
 import axios from 'axios'
+import './login.css'
 import {Redirect, useHistory } from "react-router-dom"
 import {useGlobalState, useGlobalStateUpdate} from "../../context/globelContext"
 
-import './login.css'
+axios.defaults.withCredentials = true
+
 
 
 function Login() {

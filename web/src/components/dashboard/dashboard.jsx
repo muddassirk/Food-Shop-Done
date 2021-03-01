@@ -73,7 +73,7 @@ function Dashboard() {
         old_products[index].productPrice = old_products[index].productQTY * old_products[index].actualPrice
         // console.log("old products", old_products[index]);
         setProducts(old_products)
-        var myTotal = 0 ;
+        let myTotal = 0 ;
         products.map(({productPrice},index)=>{
 
             
@@ -89,12 +89,14 @@ function Dashboard() {
         old_products[index].productQTY -= 1;
         old_products[index].productPrice = old_products[index].productQTY * old_products[index].actualPrice
         setProducts(old_products)
-        var myTotal = 0 ;
+        let myTotal = 0 ;
+        let myTotalSum ;
         products.map(({productPrice},index)=>{
 
                 myTotal -=parseInt(productPrice);
+                myTotalSum = -(myTotal)
             })
-            setTotal(myTotal);
+            setTotal(myTotalSum);
 
     }
 
@@ -106,11 +108,12 @@ function Dashboard() {
     var textAreaRef = React.useRef();
 
     function handleRewBtn(e){
-
+        // console.log("pfdksdfj" , products);
         axios({
             method: "post",
             url: 'http://localhost:5000/aboutCart',
             data: {
+                products: products,
                 grandTotal: grandttl.current.innerText,
                 address: addressRef.current.value,
                 phone: phoneRef.current.value,
@@ -156,10 +159,7 @@ function Dashboard() {
             <div className="nav">
                 <div className="container-fluid">
                     <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                        {/* <a href="#" className="navbar-brand">MENU</a>
-                        <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                            <span className="navbar-toggler-icon"></span>
-                        </button> */}
+
 
                         <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div className="navbar-nav mr-auto">
