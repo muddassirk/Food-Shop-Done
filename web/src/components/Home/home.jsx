@@ -9,8 +9,10 @@ import {Redirect } from "react-router-dom"
 
 import sliderOne from "./img/shop2.jpg"
 
-import catagoriOne from "./img/cSlider.jpg"
-import catagoriTwo from "./img/bSlider.jpg"
+import catagoriOne from "./img/Gulab_jamun_(Gibraltar,_November_2020).jpg"
+import catagoriTwo from "./img/hqdefault.jpg"
+import catagoriThree from "./img/pista-burfi.jpg.crdownload"
+import catagorifour from "./img/cSlider.jpg"
 
 import './home.css'
 
@@ -31,54 +33,6 @@ function Home() {
     return (
         <div>
 
-
-    {/* Top bar Start  */}
-            {/* <div className="top-bar">
-              <div className="container-fluid">
-                    <div className="row">
-                    <div className="col-sm-6">
-                        <i className="fa fa-envelope"></i>
-                        support@email.com
-                    </div>
-                    <div className="col-sm-6">
-                        <i className="fa fa-phone-alt"></i>
-                        +012-345-6789
-                    </div>
-                    </div>
-                </div>
-
-            </div> */}
-
-    {/* <Top bar end  */}
-
-
-    {/* Nav Bar Start */}
-    {/* <div className="nav">
-        <div className="container-fluid">
-            <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                <a href="#" className="navbar-brand">MENU</a>
-                <button type="button" className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-
-                <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div className="navbar-nav mr-auto">
-                        <a href="index.html" className="nav-item nav-link active">Home</a>
-                    </div>
-
-                    <div className="navbar-nav ml-auto">
-                        <div className="nav-item dropdown">
-                            <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">User Account</a>
-                            <div className="dropdown-menu">
-                                <a href="login.html" className="dropdown-item">Login & Register</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div> */}
-    {/* Nav Bar End  */}
 
 
     {/* Bottom Bar Start  */}
@@ -148,32 +102,19 @@ function Home() {
                                 <a className="btn" href=""><i className="fa fa-shopping-cart"></i>Shop Now</a>
                             </div>
                         </div>
-                        {/* <div className="header-slider-item">
-                            <img src={sliderTwo} width="100%" alt="Slider Image" />
-                            <div className="header-slider-caption">
-                                <p>Some text goes here that describes the image</p>
-                                <a className="btn" href=""><i className="fa fa-shopping-cart"></i>Shop Now</a>
-                            </div>
-                        </div> */}
-                        {/* <div className="header-slider-item">
-                            <img src={sliderThree} alt="Slider Image" />
-                            <div className="header-slider-caption">
-                                <p>Some text goes here that describes the image</p>
-                                <a className="btn" href=""><i className="fa fa-shopping-cart"></i>Shop Now</a>
-                            </div>
-                        </div> */}
+                       
                     </div>
                 </div>
                 <div className="col-md-3">
                     <div className="header-img">
                         <div className="img-item">
-                            <img src={catagoriOne} />
+                            <img src={catagoriThree} />
                             <a className="img-text" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>
                         </div>
                         <div className="img-item">
-                            <img src={catagoriTwo} />
+                            <img src={catagorifour} />
                             <a className="img-text" href="">
                                 <p>Some text goes here that describes the image</p>
                             </a>

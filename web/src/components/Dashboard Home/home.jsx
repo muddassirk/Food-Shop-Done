@@ -11,10 +11,11 @@ import { Redirect } from "react-router-dom"
 
 import sliderOne from "./img/shop2.jpg"
 
-import catagoriOne from "./img/cSlider.jpg"
-import catagoriTwo from "./img/bSlider.jpg"
 
-import './home.css'
+import catagoriOne from "./img/Gulab_jamun_(Gibraltar,_November_2020).jpg"
+import catagoriTwo from "./img/hqdefault.jpg"
+import catagoriThree from "./img/pista-burfi.jpg.crdownload"
+import catagorifour from "./img/cSlider.jpg"
 
 
 import './css/style.css'
@@ -148,13 +149,13 @@ function DashboardHome() {
                         <div className="col-md-3">
                             <div className="header-img">
                                 <div className="img-item">
-                                    <img src={catagoriOne} />
+                                    <img src={catagoriThree} />
                                     <a className="img-text" href="">
                                         <p>Some text goes here that describes the image</p>
                                     </a>
                                 </div>
                                 <div className="img-item">
-                                    <img src={catagoriTwo} />
+                                    <img src={catagorifour} />
                                     <a className="img-text" href="">
                                         <p>Some text goes here that describes the image</p>
                                     </a>

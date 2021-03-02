@@ -174,6 +174,29 @@ app.post("/aboutCart", (req, res, next) => {
 });
 
 
+
+app.get("/getOrders", (req, res, next) => {
+
+    cartModel.find({}, (err, data) => {
+        if (!err) {
+            // console.log("data is orders = > " , data);
+            res.status(200).send({
+                orders: data,
+            });
+        }
+        else {
+            console.log("error : ", err);
+            res.status(500).send("error");
+        }
+    })
+});
+
+
+
+
+
+
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

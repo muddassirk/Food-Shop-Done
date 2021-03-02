@@ -19,6 +19,7 @@ import './components/Home/js/app'
 import Dashboard from "./components/dashboard/dashboard";
 import DashboardHome from "./components/Dashboard Home/home";
 import AdminDashboard from "./components/adminDash/adminDash";
+import AddProducts from "./components/addProducts.jsx/addproducts";
 
 import { useGlobalState, useGlobalStateUpdate } from "./context/globelContext"
 
@@ -43,9 +44,13 @@ function App() {
         setGlobalstate(prev => {
           return { ...prev, loginStatus: false, user: null }
         })
-        // history.push("/")
-        history.push('/login')
+      //   setGlobalState(prev => {
+      //     return { ...prev, loginStatus: true , user : }
+      // })
+        // history.push('/')
 
+        // <Redirect to='/login' />
+        Redirect("/login")
 
       })
 
@@ -143,6 +148,9 @@ function App() {
                   <Link to="/" >
                     <a className="nav-item nav-link " >Admin Daschboard</a>
                   </Link>
+                  <Link to="/AddProducts" >
+                    <a className="nav-item nav-link " >Add Products</a>
+                  </Link>
                   <Link to="/" >
                     <a className="nav-item nav-link " onClick={handleLogout}>Log Out</a>
                   </Link>
@@ -221,6 +229,9 @@ function App() {
           <>
             <Route exact path="/">
               <AdminDashboard />
+            </Route>
+            <Route path="/AddProducts">
+              <AddProducts />
             </Route>
             <Route path="*">
               <Redirect to="/" />

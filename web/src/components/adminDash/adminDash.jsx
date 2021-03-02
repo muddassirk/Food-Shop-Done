@@ -8,52 +8,72 @@ import '../Home/js/app'
 
 import sweetOneImg from './img/mainSlider.jpg'
 
+import { useGlobalState } from "../../context/globelContext"
+
 function AdminDashboard() {
+
 
 
     const [posts, setPosts] = React.useState([]);
     const [newposts, setNewPosts] = React.useState([]);
-    const [total,setTotal] = React.useState();
-
-    // React.useEffect(() => {
-    //     axios.get(`http://localhost:5000/profile`)
-    //         .then(res => {
-    //             console.log("response", res.data.profile.name);
-
-    //             setNewPosts(res.data.profile.name)
-               
-    //         });
+    const [userName, setuserName] = React.useState();
+    const [userProducts, setuserProducts] = React.useState();
 
 
-    // }, [total]);
+    const globalState = useGlobalState()
 
 
+    React.useEffect(() => {
+        setuserName(globalState.role)
+        console.log("user", globalState.role);
 
 
+        axios.get(`http://localhost:5000/getOrders`)
+            .then(res => {
+                console.log("response", res);
+                console.log("response", res.data.orders);
+                setNewPosts(res.data.orders)
+                console.log(newposts);
+                // console.log(newposts);
+                // console.log("response", res.data.orders[6]);
+                // console.log("response", res.data.orders[6].name);
+                // console.log("response", res.data.orders[6].email);
+                // console.log("response", res.data.orders[6].address);
+                // console.log("response", res.data.orders[6].grandTotal);
+                // console.log("response", res.data.orders[6].review);
+                // console.log("response", res.data.orders[index).address;
+                // console.log("response", res.data.orders[6].products);
+                // setuserProducts(res.data.orders[6].products)
 
-   
-
- 
-
-  
-
-   
+            });
+        
 
 
+    }, []);
 
-  
-   
-   
-
-
-
-    
 
 
     return (
         <div>
+            <div className="nav">
+                <div className="container-fluid">
+                    <nav className="navbar navbar-expand-md bg-dark navbar-dark">
 
-          
+                        <div className="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div className="navbar-nav mr-auto">
+                                {/* <a href="cart.html" className="nav-item nav-link active">Cart</a> */}
+
+                            </div>
+                            <div className="navbar-nav ml-auto">
+                                <div className="nav-item ">
+                                    <a href="#" className="nav-link -toggle" >{userName}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
 
             <div className="bottom-bar">
                 <div className="container-fluid">
@@ -71,51 +91,99 @@ function AdminDashboard() {
                                 <button><i className="fa fa-search"></i></button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
-            
+
             <div className="cart-page">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-8">
+                        <div className="col-lg-12">
                             <div className="cart-page-inner">
                                 <div className="table-responsive">
+
                                     <table className="table table-bordered">
-                                       
+                                        <thead className="thead-dark">
+                                            <tr>
+                                                <th>name</th>
+                                                <th>Email</th>
+                                                <th>Phon No</th>
+                                                <th>Address</th>
+                                                <th>Review</th>
+                                                <th>Order Date </th>
+                                                <th>Grand Total</th>
+                                                <th>Products Details
+                                                    <br/>
+                                                    <small>Name</small>,
+                                                    <small>Qty</small>,
+                                                    <small>Actual</small>,
+                                                    <small>Total</small>
+                                                </th>
+                                                <th>Accept</th>
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody className="align-middle">
+
+                                            {
+                                                newposts.map(({ name, email, phone, review, address, createdOn, grandTotal, products }, index) => {
+                                                    return (
+                                                        // <div key={index}>
+                                                        <tr key={index}>
+                                                            <td>{name}</td>
+                                                            <td>{email}</td>
+                                                            <td>{phone}</td>
+                                                            <td>{address}</td>
+                                                            <td>{review}</td>
+                                                            <td>{createdOn}</td>
+                                                            <td>Rs.{grandTotal}</td>
+
+                                                            <td>{
+                                                                products.map((value, index) => {
+                                                                    return (
+                                                                        <div>
+                                                                            {console.log('value is', value)}
+                                                                            {/* <tr>
+                                                                                <th>Name</th>
+                                                                                <th>Qty</th>
+                                                                                <th>Price</th>
+                                                                            </tr> */}
+                                                                            <tr>
+                                                                                
+                                                                                <td>{value.productName}</td>
+                                                                                <td>{value.productQTY}</td>
+                                                                                <td>Rs.{value.actualPrice}</td>
+                                                                                <td>Rs.{value.productPrice}</td>
+                                                                            </tr>
+                                                                        </div>
+                                                                    )
+                                                                })
+
+                                                            }</td>
+                                                            <td><button><i className="fa fa-plus-circle"></i></button></td>
+
+
+
+                                                        </tr>
+
+
+
+
+                                                        // </div>
+
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+
                                     </table>
                                 </div>
+
                             </div>
                         </div>
-                        <div className="col-lg-4">
-                            <div className="cart-page-inner">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="coupon">
-                                            <input type="text" placeholder="Coupon Code" />
-                                            <button>Apply Code</button>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-12">
-                                        <div className="cart-summary">
-                                            <div className="cart-content">
-                                                {/* <h1>Cart Summary</h1> */}
-                                                {/* <h2>Grand Total :
-                                                     <span ></span></h2> */}
-                                            </div>
-                                            <div className="cart-btn" >
-                                               
 
-
-                                                <button >Checkout</button>
-                                            </div>
-                                  
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -125,49 +193,8 @@ function AdminDashboard() {
 
 
 
-            <div className="footer">
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-lg-3 col-md-6">
-                            <div className="footer-widget">
-                                <h2>Get in Touch</h2>
-                                <div className="contact-info">
-                                    <p><i className="fa fa-map-marker"></i>123 E Store, Los Angeles, USA</p>
-                                    <p><i className="fa fa-envelope"></i>email@example.com</p>
-                                    <p><i className="fa fa-phone"></i>+123-456-7890</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div className="col-lg-3 col-md-6">
-                            <div className="footer-widget">
-                                <h2>Follow Us</h2>
-                                <div className="contact-info">
-                                    <div className="social">
-                                        <a href=""><i className="fab fa-twitter"></i></a>
-                                        <a href=""><i className="fab fa-facebook-f"></i></a>
-                                        <a href=""><i className="fab fa-linkedin-in"></i></a>
-                                        <a href=""><i className="fab fa-instagram"></i></a>
-                                        <a href=""><i className="fab fa-youtube"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Footer Bottom Start */}
-            <div className="footer-bottom" style={{ height: "5vh" }}>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-6 copyright">
-                            <p>Copyright 2021 All Rights Reserved</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Footer Bottom End */}
 
 
 
