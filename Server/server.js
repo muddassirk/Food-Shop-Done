@@ -10,12 +10,37 @@ var http = require("http");
 var SERVER_SECRET = process.env.SECRET || "1234";
 
 
+
+const fs = require('fs')
+const multer = require("multer");
+const admin = require("firebase-admin");
+
+const storage = multer.diskStorage({ // https://www.npmjs.com/package/multer#diskstorage
+    destination: './uploads/',
+    filename: function(req, file, cb) {
+        cb(null, `${new Date().getTime()}-${file.filename}.${file.mimetype.split("/")[1]}`)
+    }
+})
+var upload = multer({ storage: storage })
+
+var serviceAccount = require("./firebase.json");
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://upload-photo-a5769.firebaseio.com"
+});
+
+const bucket = admin.storage().bucket("gs://upload-photo-a5769.appspot.com");
+
+
+
+
+
+
+
+
 var app = express()
     // var server = http.createServer(app);
-
-
-// var { userModel } = require("./dbrepo/index.js")
-var { userModel , cartModel } = require('./dbrepo/index')
+var { userModel, cartModel, uploadProductModel } = require('./dbrepo/index')
 var authRoutes = require("./auth/auth")
 
 console.log("userModel ====", userModel);
@@ -38,7 +63,7 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers: Content-Type, *");
     next();
 
-    
+
 })
 
 // function cors()
@@ -127,7 +152,7 @@ app.get("/profile", (req, res, next) => {
 
 app.post("/aboutCart", (req, res, next) => {
 
-    if (!req.body.grandTotal,!req.body.address,!req.body.phone,!req.body.review ) {
+    if (!req.body.grandTotal, !req.body.address, !req.body.phone, !req.body.review) {
         res.status(409).send(`
             Please send tweet in json body
             e.g:
@@ -183,14 +208,65 @@ app.get("/getOrders", (req, res, next) => {
             res.status(200).send({
                 orders: data,
             });
-        }
-        else {
+        } else {
             console.log("error : ", err);
             res.status(500).send("error");
         }
     })
 });
 
+
+
+
+app.post("/uploadNewProduct", upload.any(), (req, res, next) => {
+    // console.log(req.body.myDetails);
+    // userDetails = JSON.parse(req.body.myDetails)
+
+    // console.log("user details are  ", userDetails);
+    // console.log("user details email  ===== ", userDetails.email);
+
+    bucket.upload(
+        req.files[0].path,
+
+        function (err, file, apiResponse) {
+            if (!err) {
+
+                // https://googleapis.dev/nodejs/storage/latest/Bucket.html#getSignedUrl
+                file.getSignedUrl({
+                    action: 'read',
+                    expires: '03-09-2491'
+                }).then((urlData, err) => {
+                    if (!err) {
+                        console.log("public downloadable url: ", urlData[0]) // this is public downloadable url 
+                        // console.log("my email is => ", userDetails.email);
+                        uploadProductModel.create({ 
+                            email: userDetails.email
+                         }).then((productCreated) =>{
+                             res.send({
+                                 message: "Product has been created",
+                                 productCreated: productCreated
+                             })
+                         }).catch((err) =>{
+                             res.send({
+                                 message: "an error occured"
+                             })
+                         })
+                        try {
+                            fs.unlinkSync(req.files[0].path)
+                            //file removed
+                            return;
+                        } catch (err) {
+                            console.error(err)
+                        }
+                        // res.send("Ok");/
+                    }
+                })
+            } else {
+                console.log("err: ", err)
+                res.status(500).send();
+            }
+        });
+})
 
 
 

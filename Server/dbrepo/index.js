@@ -59,9 +59,21 @@ var aboutCart = new mongoose.Schema({
 
 var cartModel = mongoose.model("cart", aboutCart);
 
+var uploadProduct = new mongoose.Schema({
+    productName: String,
+    productPrice: Number,
+    productImage: String,
+    isActive: Boolean,
+    createdOn: { "type": Date, "default": Date.now },
+
+
+})
+var uploadProductModel = mongoose.model("uploadProductImage" , uploadProduct)
+
 module.exports = {
     userModel: userModel,
     optModel: optModel,
     cartModel: cartModel,
+    uploadProductModel : uploadProductModel
 
 }

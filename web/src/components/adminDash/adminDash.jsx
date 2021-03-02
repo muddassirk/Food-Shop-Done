@@ -106,7 +106,7 @@ function AdminDashboard() {
                                     <table className="table table-bordered">
                                         <thead className="thead-dark">
                                             <tr>
-                                                <th>name</th>
+                                                <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Phon No</th>
                                                 <th>Address</th>
